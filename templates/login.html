@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<h2>Kirjaudu sisään</h2>
+
+<form action="/login" method="post">
+Käyttäjätunnus: <br><input type="text" name="username">
+<p>
+Salasana: <br><input type="password" name="password">
+<p>
+<input type="submit" value="Kirjaudu">
+</form>
+Eikö sinulla ole käyttäjätunnusta? Luo uusi tunnus <a href="/register">tästä</a>
+
+<p>
+<a href="/">Palaa takaisin</a>
+{% endif %}
+
+{% endblock %}

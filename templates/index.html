@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Tervetuloa! <i>¡Bienvenido!</i></h2>
+
+<img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
+
+{% if session.user_id %}
+Olet kirjautunut sisään nimellä <b>{{ session.user_name }}</b>. <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+Et ole kirjautunut sisään. <a href="/login">Kirjaudu sisään</a>
+{% endif %}
+
+{% if session.user_role == 2 %}
+<h3>Opettajan toiminnot</h3>
+<ul>
+<li> <a href="/add">Tee uusi pakka</a>
+<li> <a href="/remove">Poista pakka</a>
+<li> <a href="/stats">Näytä tilastot</a>
+</ul>
+{% endif %}
+
+{% endblock %}
