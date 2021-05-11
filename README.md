@@ -1,10 +1,7 @@
-# Language learning app
+# Opi espanjaa -sovellus suomenkielisille
 
-Application for Finnish speakers to learn Spanish. 
+Tässä sovelluksessa käyttäjät voivat harjoitella espanjankielisiä sanoja ja lauseita. Käyttäjät saavat pisteitä harjoituksista ja tietty määrä pisteitä vie käyttäjän seuraavalle taitotasolle. Taitotasoja on 4.
 
-In this application users can practice Spanish words and phrases. Users gain points from exercises and a certain number of points will take the user to the next skill level. Skill level goes from 0 to 3. 
+Tasoilla 0 ja 1 on monivalintakyselyitä ja tasoilla 2 ja 3 avoimia kysymyksiä sisältäviä kyselyitä. Käyttäjällä on pääsy kysymyksiin, jotka ovat samalla tai alemmalla tasolla kuin käyttäjän oma taitotaso.
 
-Users get multiple-choice questions on the levels zero and one and open questions on the levels two and three. A user have access to questions which are on the same or lower level than user's skill level.
-
-With admin rights users can create new exercises and see statistics for exercises they have previously created. 
-
+Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjoituksia sekä tarkastella tilastoja omista aiemmin luomistaan kyselyistä. 
