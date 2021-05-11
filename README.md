@@ -1,4 +1,4 @@
-# Opi espanjaa -sovellus suomenkielisille
+# Opi espanjaa -kielenoppimissovellus
 
 Tässä sovelluksessa käyttäjät voivat harjoitella espanjankielisiä sanoja ja lauseita. Käyttäjät saavat pisteitä harjoituksista ja tietty määrä pisteitä vie käyttäjän seuraavalle taitotasolle. Taitotasoja on 4.
 
