@@ -1,7 +1,7 @@
 from app import app
 from flask import redirect, render_template, request
 from flask import render_template
-import users
+import users, exercises
 
 @app.route("/")
 def index():
@@ -47,3 +47,28 @@ def register():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/add", methods=["get", "post"])
+def add_deck():
+    users.require_role(2)
+
+    if request.method == "GET":
+        return render_template("add.html")
+
+    if request.method == "POST":
+        users.check_csrf()
+
+        name = request.form["name"]
+        if len(name) < 1 or len(name) > 15:
+            return render_template("error.html", message="Nimessä tulee olla 1-15 merkkiä")
+
+        level = request.form["level"]
+        if level != "0" and level != "1" and level != "2" and level != "3":
+            return render_template("error.html", message="Tuntematon taitotaso")
+
+        words = request.form["words"]
+        if len(words) > 500:
+            return render_template("error.html", message="Sanalista on liian pitkä")
+
+        exercise_id = exercises.add_exercise(name, level, words, users.user_id())
+        return redirect("/exercise/"+str(exercise_id))
