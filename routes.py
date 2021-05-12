@@ -26,7 +26,19 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if users.register(username,password):
+        password2 = request.form["password2"]
+        role = request.form["role"]
+        level = 0
+        if len(username) < 1 or len(username) > 15:
+            return render_template("error.html", message="Käyttäjätunnuksessa tulee olla 1-15 merkkiä")
+        if password != password2:
+            return render_template("error.html", "salasanat eivät täsmää")
+        if password == "":
+            return render_template("error.html", message="Anna käyttäjälle salasana")
+        if role != "1" and role != "2":
+            return render_template("error.html", message="Tuntematon käyttäjärooli")
+            
+        if users.register(username,password, role, level):
             return redirect("/")
         else:
             return render_template("error.html",message="Rekisteröinti ei onnistunut")
