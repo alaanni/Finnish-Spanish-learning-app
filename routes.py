@@ -37,8 +37,8 @@ def register():
             return render_template("error.html", message="Anna käyttäjälle salasana")
         if role != "1" and role != "2":
             return render_template("error.html", message="Tuntematon käyttäjärooli")
-            
-        if users.register(username,password, role, level):
+
+        if users.register(username, password, role, level):
             return redirect("/")
         else:
             return render_template("error.html",message="Rekisteröinti ei onnistunut")
