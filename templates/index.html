@@ -5,8 +5,14 @@
 
 <img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
 
-{% if session.user_id %}
+{% if session.user_id %} 
 Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="/logout">Kirjaudu ulos</a>
+<br>
+
+{% if session.user_role == 1 %}
+Osaamistasosi on <b>{{ session.user_level }}</b>.
+{% endif %}
+
 {% else %}
 Et ole kirjautunut sisään. <a href="/login">Kirjaudu sisään</a>
 {% endif %}
@@ -14,8 +20,8 @@ Et ole kirjautunut sisään. <a href="/login">Kirjaudu sisään</a>
 {% if session.user_role == 2 %}
 <h3>Opettajan toiminnot</h3>
 <ul>
-<li> <a href="/add">Tee uusi pakka</a>
-<li> <a href="/remove">Poista pakka</a>
+<li> <a href="/add">Luo uusi harjoitus</a>
+<li> <a href="/remove">Poista harjoitus</a>
 <li> <a href="/stats">Näytä tilastot</a>
 </ul>
 {% endif %}
