@@ -3,7 +3,7 @@ from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def login(username,password):
-    sql = "SELECT password, id FROM users WHERE username=:username"
+    sql = "SELECT password, id, role, level FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
     if user == None:
@@ -11,6 +11,9 @@ def login(username,password):
     else:
         if check_password_hash(user[0],password):
             session["user_id"] = user[1]
+            session["user_username"] = username
+            session["user_role"] = user[2]
+            session["user_level"] = user[3]
             return True
         else:
             return False
@@ -21,6 +24,9 @@ def user_id():
 
 def logout():
     del session["user_id"]
+    del session["user_username"]
+    del session["user_role"]
+    del session["user_level"]
 
 
 def register(username, password, role, level):
