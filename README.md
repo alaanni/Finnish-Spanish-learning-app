@@ -14,3 +14,4 @@ Sovelluksen tämänhetkisessä versiossa:
 - Voi kirjautua sisään
 - Oppilas näkee oman taitotasonsa
 - Opettaja näkee valikon opettajan toiminnoista
+- Opettaja voi luoda uuden harjoituksen, mutta listaa valmiista harjoituksista ei ole vielä saatavilla
