@@ -12,6 +12,6 @@ Sovelluksen tämänhetkisessä versiossa:
 - Näkee etusivun
 - Voi rekisteröityä oppilaana tai opettajana
 - Voi kirjautua sisään
-- Oppilas näkee oman taitotasonsa
+- Oppilas näkee oman taitotasonsa ja taitotasolleen sopivat harjoitukset
 - Opettaja näkee valikon opettajan toiminnoista
-- Opettaja voi luoda uuden harjoituksen, mutta listaa valmiista harjoituksista ei ole vielä saatavilla
+- Opettaja voi luoda uuden harjoituksen
