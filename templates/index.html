@@ -4,17 +4,29 @@
 <h2>Tervetuloa! <i>¡Bienvenido!</i></h2>
 
 <img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
+<br>
+
 
 {% if session.user_id %} 
 Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="/logout">Kirjaudu ulos</a>
 <br>
 
-{% if session.user_role == 1 %}
-Osaamistasosi on <b>{{ session.user_level }}</b>.
+{% else %}
+<a href="/login">Kirjaudu sisään</a>
 {% endif %}
 
-{% else %}
-<a href="/login">Kirjaudu sisään</a> aloittaaksesi opiskelun!
+{% if session.user_role == 1 %}
+Osaamistasosi on <b>{{ session.user_level }}</b>.
+
+<h3>Omat harjoitukset: </h3>
+
+<ul>
+{% for exercise in exercises %}
+{% if exercise.level <= session.user_level %}
+<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
+{% endif %}
+{% endfor %}
+</ul>
 {% endif %}
 
 {% if session.user_role == 2 %}

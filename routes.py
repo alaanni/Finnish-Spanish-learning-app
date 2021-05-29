@@ -5,7 +5,7 @@ import users, exercises
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", exercises=exercises.get_all_exercises())
 
 @app.route("/login", methods=["GET","POST"])
 def login():
@@ -72,3 +72,9 @@ def add_deck():
 
         exercise_id = exercises.add_exercise(name, level, words, users.user_id())
         return redirect("/exercise/"+str(exercise_id))
+
+@app.route("/exercise/<int:id>")
+def deck(id):
+    info = exercises.get_info(id)
+
+    return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2])

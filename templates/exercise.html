@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Harjoitus: {{ name }}</h2>
+
+Harjoituksen vaikeustaso on {{ level }}
+
+{% if session.user_id %}
+<p><a href="/study/{{ id }}">Aloita harjoitus</a></p>
+{% endif %}
+<p>
+<a href="/">Palaa takaisin</a>
+
+{% endblock %}

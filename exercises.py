@@ -24,3 +24,15 @@ def add_exercise(name, level, words, teacher_id):
 
     db.session.commit()
     return exercise_id
+
+def get_all_exercises():
+    sql = "SELECT id, name, level FROM exercises WHERE visible=1 ORDER BY name"
+    return db.session.execute(sql).fetchall()
+
+def get_info(exercise_id):
+    sql = """SELECT e.name, e.level, u.username FROM exercises e, users u
+             WHERE e.id=:exercise_id AND e.teacher_id=u.id"""
+    return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()
+
+def get_questions(exercise_id):
+    return
