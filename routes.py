@@ -49,7 +49,7 @@ def logout():
     return redirect("/")
 
 @app.route("/add", methods=["get", "post"])
-def add_deck():
+def add_exercise():
     users.require_role(2)
 
     if request.method == "GET":
@@ -74,7 +74,11 @@ def add_deck():
         return redirect("/exercise/"+str(exercise_id))
 
 @app.route("/exercise/<int:id>")
-def deck(id):
+def exercise(id):
     info = exercises.get_info(id)
 
     return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2])
+
+@app.route("/study/<int:id>")
+def study(id):
+    return
