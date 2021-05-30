@@ -81,4 +81,10 @@ def exercise(id):
 
 @app.route("/study/<int:id>")
 def study(id):
-    return
+    questions = exercises.get_questions(id)
+    choices = []
+    for question in questions:
+        choices.append(question[1])
+    exercise_level = exercises.get_level(id)
+
+    return render_template("study.html",questions=questions, level=exercise_level, choices=choices)

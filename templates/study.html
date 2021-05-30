@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if level[0] < 2 %}
+
+<br>
+{% for question in questions %}
+{{ question[0] }}
+<hr>
+<form action="/answer" method="POST">
+{% for choice in choices %}
+<input type="radio" name="answer" value="{{ choice }}"> {{ choice }} <br>
+{% endfor %}
+<p>
+<input type="submit" value="Vastaa">
+<input type="hidden" name="id" value="{{ id }}">
+</form>
+<hr>
+{% endfor %}
+
+{% else %}
+<ul>
+{% for question in questions %}
+
+Suomi: {{ question[0] }}
+Espanja: {{ question[1] }}
+
+{% endfor %}
+</ul>
+{% endif %}
+
+<a href="/">Takaisin</a>
+{% endblock %}

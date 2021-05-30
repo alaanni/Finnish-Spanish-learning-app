@@ -3,7 +3,13 @@
 
 <h2>Harjoitus: {{ name }}</h2>
 
-Harjoituksen vaikeustaso on {{ level }}
+Harjoituksen vaikeustaso on {{ level }}.
+<br>
+{% if level < 2%}
+Tasolla {{ level }} tehtävät ovat monivalintakysymyksiä.
+{% else %}
+Tasolla {{ level }} tehtävät ovat avoimia kysymyksiä.
+{% endif %}
 
 {% if session.user_id %}
 <p><a href="/study/{{ id }}">Aloita harjoitus</a></p>

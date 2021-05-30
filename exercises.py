@@ -35,4 +35,9 @@ def get_info(exercise_id):
     return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()
 
 def get_questions(exercise_id):
-    return
+    sql = "SELECT fin, spa FROM questions WHERE exercise_id=:exercise_id"
+    return db.session.execute(sql, {"exercise_id":exercise_id}).fetchall()
+
+def get_level(exercise_id):
+    sql = "SELECT level FROM exercises WHERE id=:exercise_id"
+    return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()

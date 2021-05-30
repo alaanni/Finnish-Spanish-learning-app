@@ -3,7 +3,8 @@ CREATE TABLE users (
     username TEXT,
     password TEXT,
     role INTEGER,
-    level INTEGER
+    level INTEGER,
+    points INTEGER
 );
 
 CREATE TABLE exercises (
