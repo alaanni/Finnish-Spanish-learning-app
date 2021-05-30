@@ -6,7 +6,7 @@ Tasoilla 0 ja 1 on monivalintakyselyitä ja tasoilla 2 ja 3 avoimia kysymyksiä 
 
 Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjoituksia sekä tarkastella tilastoja omista aiemmin luomistaan harjoituksista. 
 
-Sovellus käynnissä [täällä](https://tsoha-language-learning.herokuapp.com/).
+Voit testata sovellusta [täällä](https://tsoha-language-learning.herokuapp.com/).
 
 Sovelluksen tämänhetkisessä versiossa (Välipalautus 2):
 - Näkee etusivun
