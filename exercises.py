@@ -35,9 +35,34 @@ def get_info(exercise_id):
     return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()
 
 def get_questions(exercise_id):
-    sql = "SELECT fin, spa FROM questions WHERE exercise_id=:exercise_id"
+    sql = "SELECT id, exercise_id, fin, spa FROM questions WHERE exercise_id=:exercise_id"
     return db.session.execute(sql, {"exercise_id":exercise_id}).fetchall()
 
 def get_level(exercise_id):
     sql = "SELECT level FROM exercises WHERE id=:exercise_id"
     return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()
+
+def check_answer(question_id, answer, user_id):
+    sql = "SELECT spa FROM questions WHERE id=:id"
+    correct = db.session.execute(sql, {"id":question_id}).fetchone()
+    result = 1 if answer == correct[0] else 0
+    if result == 1:
+        sql = "UPDATE users SET points = points + 1 WHERE id=:user_id"
+        db.session.execute(sql, {"user_id":user_id})
+        db.session.commit()
+
+    return result
+
+def check_users_points(user_id):
+    sql = "SELECT points FROM users WHERE id=:user_id"
+    points = db.session.execute(sql, {"user_id":user_id}).fetchone()
+    if points > 5:
+        sql = "UPDATE users SET level = 1 WHERE id=:user_id"
+    elif points > 10:
+        sql = "UPDATE users SET level = 2 WHERE id=:user_id"
+    elif points > 20:
+        sql = "UPDATE users SET level = 3 WHERE id=:user_id"
+    else: return
+
+    db.session.execute(sql, {"user_id":user_id})
+    db.session.commit()

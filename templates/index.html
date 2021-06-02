@@ -31,11 +31,9 @@ Osaamistasosi on <b>{{ session.user_level }}</b>.
 
 {% if session.user_role == 2 %}
 <h3>Opettajan toiminnot</h3>
-<ul>
-<li> <a href="/add">Luo uusi harjoitus</a>
-<li> <a href="/remove">Poista harjoitus</a>
-<li> <a href="/stats">Näytä tilastot</a>
-</ul>
+<a href="/add">Luo uusi harjoitus</a><br>
+<a href="/remove">Poista harjoituksia</a><br>
+<a href="/stats">Omat tilastot</a><br>
 {% endif %}
 
 {% endblock %}

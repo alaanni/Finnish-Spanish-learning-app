@@ -1,3 +1,4 @@
+import random
 from app import app
 from flask import redirect, render_template, request
 from flask import render_template
@@ -17,7 +18,7 @@ def login():
         if users.login(username,password):
             return redirect("/")
         else:
-            return render_template("error.html",message="Väärä tunnus tai salasana")
+            return render_template("error.html", message="Väärä tunnus tai salasana")
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -28,7 +29,6 @@ def register():
         password = request.form["password1"]
         password2 = request.form["password2"]
         role = request.form["role"]
-        level = 0
         if len(username) < 1 or len(username) > 15:
             return render_template("error.html", message="Käyttäjätunnuksessa tulee olla 1-15 merkkiä")
         if password != password2:
@@ -38,10 +38,10 @@ def register():
         if role != "1" and role != "2":
             return render_template("error.html", message="Tuntematon käyttäjärooli")
 
-        if users.register(username, password, role, level):
+        if users.register(username, password, role):
             return redirect("/")
         else:
-            return render_template("error.html",message="Rekisteröinti ei onnistunut")
+            return render_template("error.html", message="Rekisteröinti ei onnistunut")
 
 @app.route("/logout")
 def logout():
@@ -79,12 +79,29 @@ def exercise(id):
 
     return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2])
 
-@app.route("/study/<int:id>")
+@app.route("/study/<int:id>", methods=["get", "post"])
 def study(id):
     questions = exercises.get_questions(id)
     choices = []
     for question in questions:
-        choices.append(question[1])
+        choices.append(question[3])
+    random.shuffle(choices)
     exercise_level = exercises.get_level(id)
 
-    return render_template("study.html",questions=questions, level=exercise_level, choices=choices)
+    if request.method == "GET":
+        return render_template("study.html", questions=questions, level=exercise_level, choices=choices)
+
+    if request.method == "POST":
+        users.require_role(1)
+        users.check_csrf()
+
+        exercise_id = request.form["exercise_id"]
+        question_id = request.form["question_id"]
+        answer = request.form["answer"]
+
+        if exercises.check_answer(question_id, answer, exercise_id) == 1:
+            for question in questions:
+                if question[0] == question_id:
+                    questions.remove(question)
+
+        return render_template("study.html", questions=questions, level=exercise_level, choices=choices)

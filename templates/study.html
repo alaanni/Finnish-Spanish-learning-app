@@ -5,29 +5,37 @@
 
 <br>
 {% for question in questions %}
-{{ question[0] }}
+{{ question[2] }}
 <hr>
-<form action="/answer" method="POST">
+<form action="/study/{{ question[1] }}" method="POST">
 {% for choice in choices %}
 <input type="radio" name="answer" value="{{ choice }}"> {{ choice }} <br>
 {% endfor %}
 <p>
 <input type="submit" value="Vastaa">
-<input type="hidden" name="id" value="{{ id }}">
+<input type="hidden" name="exercise_id" value="{{ question[1] }}">
+<input type="hidden" name="question_id" value="{{ question[0] }}">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <hr>
 {% endfor %}
 
 {% else %}
+
 <ul>
 {% for question in questions %}
-
-Suomi: {{ question[0] }}
-Espanja: {{ question[1] }}
-
+<form action="/study{{ question[1] }}" method="POST">
+<p>Käännä suomeksi <b>{{ question[3] }}:</b><br>
+<input type="text" name="answer"></p>
+<input type="hidden" name="exercise_id" value="{{ question[1] }}">
+<input type="hidden" name="question_id" value="{{ question[0] }}">
+<input type="submit" value="Lähetä">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 {% endfor %}
 </ul>
+
 {% endif %}
 
 <a href="/">Takaisin</a>
-{% endblock %}
+{% endblock %} 
