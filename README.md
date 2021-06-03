@@ -8,7 +8,7 @@ Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjo
 
 Voit testata sovellusta [täällä](https://tsoha-language-learning.herokuapp.com/).
 
-Uusimmassa versiossa ei toimi vanhat käyttäjätunnukset scheman muutoksen myötä, luo siis uusi käyttäjätunnus testausta varten.
+**Uusimmassa versiossa ei toimi vanhat käyttäjätunnukset scheman muutoksen myötä, luo siis uusi käyttäjätunnus testausta varten.**
 
 Sovelluksen tämänhetkisessä versiossa:
 - Näkee etusivun
