@@ -8,7 +8,9 @@ Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjo
 
 Voit testata sovellusta [täällä](https://tsoha-language-learning.herokuapp.com/).
 
-Sovelluksen tämänhetkisessä versiossa (Välipalautus 2):
+Uusimmassa versiossa ei toimi vanhat käyttäjätunnukset scheman muutoksen myötä, luo siis uusi käyttäjätunnus testausta varten.
+
+Sovelluksen tämänhetkisessä versiossa:
 - Näkee etusivun
 - Voi rekisteröityä oppilaana tai opettajana
 - Voi kirjautua sisään
@@ -17,10 +19,11 @@ Sovelluksen tämänhetkisessä versiossa (Välipalautus 2):
 - Opettaja voi luoda uuden harjoituksen
 - Käyttäjät voivat nähdä harjoituksia
 - Tasojen 0 ja 1 harjoitusten kysymykset esitetään monivalintakysymyksinä
+- Voit vastata kysymyksiin ja näet moneenko harjoituksen kysymykseen olet vastannut oikein
+- Oppilaiden pisteet ja taitotaso nousevat oikeiden vastausten myötä
 
 Tulevia toimintoja:
-- Käyttäjät voivat vastata harjoitusten kysymyksiin
-- Oppilaiden pisteet ja taitotaso nousevat oikeiden vastausten myötä
+- Opettaja ei voi vastata harjoituksiin, ainoastaan tarkastella
 - Oppilaat näkevät harjoituksista saadut pisteet
 - Opettaja näkee tilastoja omista harjoituksistaan
 - Opettaja voi poistaa luomiaan harjoituksia
