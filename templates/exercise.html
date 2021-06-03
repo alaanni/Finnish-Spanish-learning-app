@@ -13,8 +13,10 @@ Tasolla {{ level }} tehtävät ovat avoimia kysymyksiä.
 
 {% if session.user_id %}
 <p><a href="/study/{{ id }}">Aloita harjoitus</a></p>
+
+Olet vastannut oikein {{ answers }}/{{ questions }} kysymykseen.
 {% endif %}
 <p>
-<a href="/">Palaa takaisin</a>
+<a href="/">Palaa etusivulle</a>
 
 {% endblock %}

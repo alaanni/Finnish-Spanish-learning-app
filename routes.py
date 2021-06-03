@@ -76,8 +76,11 @@ def add_exercise():
 @app.route("/exercise/<int:id>")
 def exercise(id):
     info = exercises.get_info(id)
+    questions = exercises.count_questions(id)
+    correct_answers = exercises.count_correct_answers(id, users.user_id())
 
-    return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2])
+    return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2], 
+    questions=questions, answers=correct_answers)
 
 @app.route("/study/<int:id>", methods=["get", "post"])
 def study(id):
@@ -86,7 +89,7 @@ def study(id):
     for question in questions:
         choices.append(question[3])
     random.shuffle(choices)
-    exercise_level = exercises.get_level(id)
+    exercise_level = exercises.get_level(id)[0]
 
     if request.method == "GET":
         return render_template("study.html", questions=questions, level=exercise_level, choices=choices)
@@ -99,9 +102,7 @@ def study(id):
         question_id = request.form["question_id"]
         answer = request.form["answer"]
 
-        if exercises.check_answer(question_id, answer, exercise_id) == 1:
-            for question in questions:
-                if question[0] == question_id:
-                    questions.remove(question)
+        exercises.check_answer(question_id, answer, users.user_id(), exercise_level)
+        exercises.check_users_points(users.user_id())
 
         return render_template("study.html", questions=questions, level=exercise_level, choices=choices)

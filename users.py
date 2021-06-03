@@ -10,7 +10,7 @@ def login(username,password):
     if user == None:
         return False
     else:
-        if check_password_hash(user[0],password):
+        if check_password_hash(user[0], password):
             session["user_id"] = user[1]
             session["user_username"] = username
             session["user_role"] = user[2]
@@ -21,7 +21,7 @@ def login(username,password):
             return False
 
 def user_id():
-    return session.get("user_id",0)
+    return session.get("user_id", 0)
 
 
 def logout():

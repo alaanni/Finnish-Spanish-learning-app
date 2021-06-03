@@ -21,3 +21,10 @@ CREATE TABLE questions (
     fin TEXT,
     spa TEXT
 );
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    question_id INTEGER REFERENCES questions,
+    user_id INTEGER REFERENCES users,
+    result INTEGER
+)

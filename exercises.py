@@ -1,3 +1,4 @@
+from sqlalchemy.sql.operators import distinct_op
 from db import db
 
 def get_students_exercises(user_level):
@@ -26,7 +27,7 @@ def add_exercise(name, level, words, teacher_id):
     return exercise_id
 
 def get_all_exercises():
-    sql = "SELECT id, name, level FROM exercises WHERE visible=1 ORDER BY name"
+    sql = "SELECT id, name, level FROM exercises WHERE visible=1 ORDER BY level"
     return db.session.execute(sql).fetchall()
 
 def get_info(exercise_id):
@@ -42,27 +43,42 @@ def get_level(exercise_id):
     sql = "SELECT level FROM exercises WHERE id=:exercise_id"
     return db.session.execute(sql, {"exercise_id": exercise_id}).fetchone()
 
-def check_answer(question_id, answer, user_id):
-    sql = "SELECT spa FROM questions WHERE id=:id"
+def check_answer(question_id, answer, user_id, level):
+    sql = "SELECT fin, spa FROM questions WHERE id=:id"
     correct = db.session.execute(sql, {"id":question_id}).fetchone()
-    result = 1 if answer == correct[0] else 0
+    if level < 2:
+        result = 1 if answer == correct[1] else 0
+    else:
+        result = 1 if answer == correct[0] else 0
     if result == 1:
         sql = "UPDATE users SET points = points + 1 WHERE id=:user_id"
         db.session.execute(sql, {"user_id":user_id})
         db.session.commit()
-
-    return result
+    sql = """INSERT INTO answers (question_id, user_id, result)
+             VALUES (:question_id, :user_id, :result)"""
+    db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "result":result})
+    db.session.commit()
 
 def check_users_points(user_id):
     sql = "SELECT points FROM users WHERE id=:user_id"
     points = db.session.execute(sql, {"user_id":user_id}).fetchone()
-    if points > 5:
+    if points[0] > 5 and points[0] <= 10:
         sql = "UPDATE users SET level = 1 WHERE id=:user_id"
-    elif points > 10:
+    elif points[0] > 10 and points[0] <= 20:
         sql = "UPDATE users SET level = 2 WHERE id=:user_id"
-    elif points > 20:
+    elif points[0] > 20:
         sql = "UPDATE users SET level = 3 WHERE id=:user_id"
     else: return
 
     db.session.execute(sql, {"user_id":user_id})
     db.session.commit()
+
+def count_questions(exercise_id):
+    sql = "SELECT COUNT(*) FROM questions WHERE exercise_id = :exercise_id"
+    return db.session.execute(sql, {"exercise_id":exercise_id}).fetchone()[0]
+
+def count_correct_answers(exercise_id, user_id):
+    sql = """SELECT COUNT(DISTINCT question_id) FROM answers 
+    JOIN questions ON answers.question_id = questions.id
+    WHERE questions.exercise_id =:exercise_id AND result = 1 AND user_id=:user_id"""
+    return db.session.execute(sql, {"exercise_id":exercise_id, "user_id":user_id}).fetchone()[0]

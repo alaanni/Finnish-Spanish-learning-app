@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% if level[0] < 2 %}
+{% if level < 2 %}
 
 <br>
 {% for question in questions %}
@@ -12,7 +12,7 @@
 <input type="radio" name="answer" value="{{ choice }}"> {{ choice }} <br>
 {% endfor %}
 <p>
-<input type="submit" value="Vastaa">
+<input type="submit" value="Tallenna vastaus">
 <input type="hidden" name="exercise_id" value="{{ question[1] }}">
 <input type="hidden" name="question_id" value="{{ question[0] }}">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
@@ -24,12 +24,12 @@
 
 <ul>
 {% for question in questions %}
-<form action="/study{{ question[1] }}" method="POST">
+<form action="/study/{{ question[1] }}" method="POST">
 <p>Käännä suomeksi <b>{{ question[3] }}:</b><br>
 <input type="text" name="answer"></p>
 <input type="hidden" name="exercise_id" value="{{ question[1] }}">
 <input type="hidden" name="question_id" value="{{ question[0] }}">
-<input type="submit" value="Lähetä">
+<input type="submit" value="Tallenna vastaus">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endfor %}
@@ -37,5 +37,5 @@
 
 {% endif %}
 
-<a href="/">Takaisin</a>
+<a href="/exercise/{{ questions[0][1] }}">Tuloksiin</a>
 {% endblock %} 

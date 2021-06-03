@@ -23,7 +23,7 @@ Osaamistasosi on <b>{{ session.user_level }}</b>.
 <ul>
 {% for exercise in exercises %}
 {% if exercise.level <= session.user_level %}
-<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
+<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})
 {% endif %}
 {% endfor %}
 </ul>
