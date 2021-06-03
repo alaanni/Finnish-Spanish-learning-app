@@ -98,7 +98,6 @@ def study(id):
         users.require_role(1)
         users.check_csrf()
 
-        exercise_id = request.form["exercise_id"]
         question_id = request.form["question_id"]
         answer = request.form["answer"]
 
