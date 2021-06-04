@@ -19,7 +19,7 @@ Sovelluksen tämänhetkisessä versiossa:
 - Opettaja voi luoda uuden harjoituksen
 - Käyttäjät voivat nähdä harjoituksia
 - Tasojen 0 ja 1 harjoitusten kysymykset esitetään monivalintakysymyksinä
-- Tasojen 2 ja 3 harjoituksissa avoimia kysymyksiä
+- Tasojen 2 ja 3 harjoituksissa on avoimia kysymyksiä
 - Voi vastata kysymyksiin ja voi tarkastella moneenko harjoituksen kysymykseen on vastattu oikein
 - Oppilaiden pisteet ja taitotaso nousevat oikeiden vastausten myötä
 
