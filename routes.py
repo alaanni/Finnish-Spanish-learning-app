@@ -125,3 +125,9 @@ def remove_exercise():
         
 
         return redirect("/remove")
+
+@app.route("/stats")
+def stats():
+    users.require_role(2)
+
+    return render_template("stats.html")
