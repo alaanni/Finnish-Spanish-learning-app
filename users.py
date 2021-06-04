@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import os
 
 def login(username,password):
-    sql = "SELECT password, id, role, level FROM users WHERE username=:username"
+    sql = "SELECT password, id, role, level, points FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
     if user == None:
@@ -15,6 +15,7 @@ def login(username,password):
             session["user_username"] = username
             session["user_role"] = user[2]
             session["user_level"] = user[3]
+            session["user_points"] = user[4]
             session["csrf_token"] = os.urandom(16).hex()
             return True
         else:
@@ -29,6 +30,7 @@ def logout():
     del session["user_username"]
     del session["user_role"]
     del session["user_level"]
+    del session["user_points"]
 
 
 def register(username, password, role):
@@ -44,6 +46,28 @@ def register(username, password, role):
 def require_role(role):
     if role > session.get("user_role", 0):
         abort(403)
+
+def check_points():
+    if session.get("user_role", 0) == 2:
+        return
+    sql = "SELECT points FROM users WHERE id=:user_id"
+    points = db.session.execute(sql, {"user_id":user_id()}).fetchone()[0]
+    if points > 5 and points <= 10:
+        sql = "UPDATE users SET level = 1 WHERE id=:user_id"
+    elif points > 10 and points <= 20:
+        sql = "UPDATE users SET level = 2 WHERE id=:user_id"
+    elif points > 20:
+        sql = "UPDATE users SET level = 3 WHERE id=:user_id"
+    else: return
+
+    db.session.execute(sql, {"user_id":user_id()})
+    db.session.commit()
+    session["user_points"] = points
+
+def check_level():
+    sql = "SELECT level FROM users WHERE id=:user_id"
+    level = db.session.execute(sql, {"user_id":user_id()}).fetchone()[0]
+    session["user_level"] = level
 
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:

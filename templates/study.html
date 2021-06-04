@@ -12,7 +12,9 @@
 <input type="radio" name="answer" value="{{ choice }}"> {{ choice }} <br>
 {% endfor %}
 <p>
+{% if session.user_role == 1 %}
 <input type="submit" value="Tallenna vastaus">
+{% endif %}
 <input type="hidden" name="exercise_id" value="{{ question[1] }}">
 <input type="hidden" name="question_id" value="{{ question[0] }}">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
@@ -29,7 +31,9 @@
 <input type="text" name="answer"></p>
 <input type="hidden" name="exercise_id" value="{{ question[1] }}">
 <input type="hidden" name="question_id" value="{{ question[0] }}">
+{% if session.user_role == 1 %}
 <input type="submit" value="Tallenna vastaus">
+{% endif %}
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endfor %}
@@ -37,5 +41,9 @@
 
 {% endif %}
 
+{% if session.user_role == 1 %}
 <a href="/exercise/{{ questions[0][1] }}">Tuloksiin</a>
+{% else %}
+<a href="/exercise/{{ questions[0][1] }}">Lopeta tarkastelu</a>
+{% endif %}
 {% endblock %} 

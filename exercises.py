@@ -1,12 +1,8 @@
 from sqlalchemy.sql.operators import distinct_op
 from db import db
 
-def get_students_exercises(user_level):
-    sql = "SELECT id, name FROM exercises WHERE level<=:user_level AND visible=1 ORDER BY level"
-    return db.session.execute(sql, {"user_level":user_level}).fetchall()
-
 def get_teachers_exercises(user_id):
-    sql = "SELECT id, name FROM exercises WHERE creator_id=:user_id AND visible=1 ORDER BY level"
+    sql = "SELECT id, name FROM exercises WHERE teacher_id=:user_id AND visible=1 ORDER BY name"
     return db.session.execute(sql, {"user_id":user_id}).fetchall()
 
 def add_exercise(name, level, words, teacher_id):
@@ -51,7 +47,7 @@ def check_answer(question_id, answer, user_id, level):
     else:
         result = 1 if answer == correct[0] else 0
     if result == 1:
-        sql = "UPDATE users SET points = points + 1 WHERE id=:user_id"
+        sql = "UPDATE users SET points=points+1 WHERE id=:user_id"
         db.session.execute(sql, {"user_id":user_id})
         db.session.commit()
     sql = """INSERT INTO answers (question_id, user_id, result)
@@ -59,26 +55,18 @@ def check_answer(question_id, answer, user_id, level):
     db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "result":result})
     db.session.commit()
 
-def check_users_points(user_id):
-    sql = "SELECT points FROM users WHERE id=:user_id"
-    points = db.session.execute(sql, {"user_id":user_id}).fetchone()
-    if points[0] > 5 and points[0] <= 10:
-        sql = "UPDATE users SET level = 1 WHERE id=:user_id"
-    elif points[0] > 10 and points[0] <= 20:
-        sql = "UPDATE users SET level = 2 WHERE id=:user_id"
-    elif points[0] > 20:
-        sql = "UPDATE users SET level = 3 WHERE id=:user_id"
-    else: return
-
-    db.session.execute(sql, {"user_id":user_id})
-    db.session.commit()
-
 def count_questions(exercise_id):
-    sql = "SELECT COUNT(*) FROM questions WHERE exercise_id = :exercise_id"
+    sql = "SELECT COUNT(*) FROM questions WHERE exercise_id=:exercise_id"
     return db.session.execute(sql, {"exercise_id":exercise_id}).fetchone()[0]
 
 def count_correct_answers(exercise_id, user_id):
     sql = """SELECT COUNT(DISTINCT question_id) FROM answers 
     JOIN questions ON answers.question_id = questions.id
-    WHERE questions.exercise_id =:exercise_id AND result = 1 AND user_id=:user_id"""
+    WHERE questions.exercise_id=:exercise_id AND result = 1 AND user_id=:user_id"""
     return db.session.execute(sql, {"exercise_id":exercise_id, "user_id":user_id}).fetchone()[0]
+
+def remove_exercise(exercise_id, teacher_id):
+    sql = """UPDATE exercises SET visible=0 
+    WHERE id=:exercise_id and teacher_id=:teacher_id"""
+    db.session.execute(sql, {"exercise_id":exercise_id, "teacher_id":teacher_id})
+    db.session.commit()

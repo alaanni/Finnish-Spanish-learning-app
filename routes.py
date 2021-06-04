@@ -1,4 +1,6 @@
 import random
+
+from flask.globals import session
 from app import app
 from flask import redirect, render_template, request
 from flask import render_template
@@ -78,6 +80,8 @@ def exercise(id):
     info = exercises.get_info(id)
     questions = exercises.count_questions(id)
     correct_answers = exercises.count_correct_answers(id, users.user_id())
+    users.check_level()
+    users.check_points()
 
     return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2], 
     questions=questions, answers=correct_answers)
@@ -102,6 +106,22 @@ def study(id):
         answer = request.form["answer"]
 
         exercises.check_answer(question_id, answer, users.user_id(), exercise_level)
-        exercises.check_users_points(users.user_id())
 
         return render_template("study.html", questions=questions, level=exercise_level, choices=choices)
+
+@app.route("/remove", methods=["get", "post"])
+def remove_exercise():
+    users.require_role(2)
+
+    if request.method == "GET":
+        list = exercises.get_teachers_exercises(users.user_id())
+        return render_template("remove.html", exercises=list)
+
+    if request.method == "POST":
+        users.check_csrf()
+        if "exercise" in request.form:
+            exercise = request.form["exercise"]
+            exercises.remove_exercise(exercise, users.user_id())
+        
+
+        return redirect("/remove")
