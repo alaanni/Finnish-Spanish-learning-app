@@ -8,7 +8,7 @@ Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjo
 
 Sovellus on käynnissä [täällä](https://tsoha-language-learning.herokuapp.com/).
 
-Sovelluksen tämänhetkisessä versiossa:
+Sovelluksessa:
 - Voi rekisteröityä oppilaana tai opettajana
 - Voi kirjautua sisään
 - Oppilas:
