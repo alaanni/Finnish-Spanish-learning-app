@@ -47,13 +47,20 @@ def check_answer(question_id, answer, user_id, level):
     else:
         result = 1 if answer == correct[0] else 0
     if result == 1:
-        sql = "UPDATE users SET points=points+1 WHERE id=:user_id"
-        db.session.execute(sql, {"user_id":user_id})
-        db.session.commit()
+        give_points(question_id, user_id)  
     sql = """INSERT INTO answers (question_id, user_id, result)
              VALUES (:question_id, :user_id, :result)"""
     db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "result":result})
     db.session.commit()
+
+def give_points(question_id, user_id):
+    sql = """SELECT COUNT (question_id) FROM answers 
+        WHERE user_id=:user_id AND question_id=:question_id AND result=1"""
+    count = db.session.execute(sql, {"user_id":user_id, "question_id":question_id}).fetchone()[0]
+    if(count == 0):
+        sql = "UPDATE users SET points=points+1 WHERE id=:user_id"
+        db.session.execute(sql, {"user_id":user_id})
+        db.session.commit()
 
 def count_questions(exercise_id):
     sql = "SELECT COUNT(*) FROM questions WHERE exercise_id=:exercise_id"
@@ -67,6 +74,14 @@ def count_correct_answers(exercise_id, user_id):
 
 def remove_exercise(exercise_id, teacher_id):
     sql = """UPDATE exercises SET visible=0 
-    WHERE id=:exercise_id and teacher_id=:teacher_id"""
+    WHERE id=:exercise_id AND teacher_id=:teacher_id"""
     db.session.execute(sql, {"exercise_id":exercise_id, "teacher_id":teacher_id})
     db.session.commit()
+
+def get_stats(teacher_id):
+    sql = """SELECT username, result, name, fin, spa FROM answers 
+    JOIN questions ON answers.question_id = questions.id
+    JOIN exercises ON questions.exercise_id = exercises.id
+    JOIN users ON answers.user_id = users.id
+    WHERE exercises.teacher_id=:teacher_id"""
+    return db.session.execute(sql, {"teacher_id":teacher_id}).fetchall()

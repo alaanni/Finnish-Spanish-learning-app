@@ -3,6 +3,16 @@
 
 <h2>Omat harjoitukset</h2>
 
+{% for exercise in exercises %}
+<h3>Harjoitus: {{ exercise.name }}</h3>
+Tulokset:
+<br>
+{% for stat in statistics %}
+{{ stat.username }}: {{stat.result}}
+{% endfor %}
+<br>
+{% endfor %}
+
 
 <a href="/">Palaa takaisin</a>
 

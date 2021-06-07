@@ -129,5 +129,7 @@ def remove_exercise():
 @app.route("/stats")
 def stats():
     users.require_role(2)
+    list = exercises.get_teachers_exercises(users.user_id())
+    statistics = exercises.get_stats(users.user_id())
 
-    return render_template("stats.html")
+    return render_template("stats.html", exercises=list, statistics=statistics)
