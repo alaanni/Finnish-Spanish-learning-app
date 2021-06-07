@@ -21,9 +21,7 @@ Sovelluksessa:
   - voi luoda uuden harjoituksen
   - voi poistaa luomiaan harjoituksia
   - ei voi vastata harjoituksiin, ainoastaan tarkastella niitä
+  - näkee tilastoja omista harjoituksistaan
 - Tasojen 0 ja 1 harjoitusten kysymykset esitetään monivalintakysymyksinä
 - Tasojen 2 ja 3 harjoituksissa on avoimia kysymyksiä
 - Oppilaiden pisteet ja taitotaso nousevat oikeiden vastausten myötä
-
-Tulevia toimintoja:
-- Opettaja näkee tilastoja omista harjoituksistaan
