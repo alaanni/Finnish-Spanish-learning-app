@@ -79,9 +79,10 @@ def remove_exercise(exercise_id, teacher_id):
     db.session.commit()
 
 def get_stats(teacher_id):
-    sql = """SELECT username, result, name, fin, spa FROM answers 
+    sql = """SELECT username, COUNT(result), result, name FROM answers 
     JOIN questions ON answers.question_id = questions.id
     JOIN exercises ON questions.exercise_id = exercises.id
     JOIN users ON answers.user_id = users.id
-    WHERE exercises.teacher_id=:teacher_id"""
+    WHERE exercises.teacher_id=2 AND result IN (0, 1)
+    GROUP BY users.username, name, result"""
     return db.session.execute(sql, {"teacher_id":teacher_id}).fetchall()
