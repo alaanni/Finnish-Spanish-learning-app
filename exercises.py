@@ -83,6 +83,6 @@ def get_stats(teacher_id):
     JOIN questions ON answers.question_id = questions.id
     JOIN exercises ON questions.exercise_id = exercises.id
     JOIN users ON answers.user_id = users.id
-    WHERE exercises.teacher_id=2 AND result IN (0, 1)
+    WHERE exercises.teacher_id=:teacher_id AND result IN (0, 1)
     GROUP BY users.username, name, result"""
     return db.session.execute(sql, {"teacher_id":teacher_id}).fetchall()
