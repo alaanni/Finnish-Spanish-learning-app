@@ -10,8 +10,8 @@ Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjo
 [Opi espanjaa](https://tsoha-language-learning.herokuapp.com/)
 
 ## Toiminnallisuudet
-- Voi rekisteröityä oppilaana tai opettajana
-- Voi kirjautua sisään
+- Rekisterityminen oppilaana tai opettajana
+- Kirjautuminen
 - Oppilas:
   - näkee oman taitotasonsa ja taitotasolleen sopivat harjoitukset
   - voi vastata harjoitusten kysymyksiin
