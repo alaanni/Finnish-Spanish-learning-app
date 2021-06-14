@@ -80,8 +80,8 @@ def exercise(id):
     info = exercises.get_info(id)
     questions = exercises.count_questions(id)
     correct_answers = exercises.count_correct_answers(id, users.user_id())
-    users.check_level()
     users.check_points()
+    users.check_level()
 
     return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2], 
     questions=questions, answers=correct_answers)
