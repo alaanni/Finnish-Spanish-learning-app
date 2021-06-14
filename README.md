@@ -6,9 +6,10 @@ Tasoilla 0 ja 1 on monivalintakyselyitä ja tasoilla 2 ja 3 avoimia kysymyksiä 
 
 Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjoituksia sekä tarkastella tilastoja omista aiemmin luomistaan harjoituksista. 
 
-Sovellus on käynnissä [täällä](https://tsoha-language-learning.herokuapp.com/).
+## Linkki sovellukseen
+[Opi espanjaa](https://tsoha-language-learning.herokuapp.com/)
 
-Sovelluksessa:
+## Toiminnallisuudet
 - Voi rekisteröityä oppilaana tai opettajana
 - Voi kirjautua sisään
 - Oppilas:
@@ -23,6 +24,6 @@ Sovelluksessa:
   - ei voi vastata harjoituksiin, ainoastaan tarkastella niitä
   - näkee tilastoja omista harjoituksistaan
 
-Kehitettävää:
+## Kehitettävää
 - Selkeämmät tilastot opettajille
 - Sovelluksen ulkoasu
