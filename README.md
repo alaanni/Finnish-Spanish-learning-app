@@ -23,3 +23,6 @@ Sovelluksessa:
   - ei voi vastata harjoituksiin, ainoastaan tarkastella niitä
   - näkee tilastoja omista harjoituksistaan
 
+Kehitettävää:
+- Selkeämmät tilastot opettajille
+- Sovelluksen ulkoasu
