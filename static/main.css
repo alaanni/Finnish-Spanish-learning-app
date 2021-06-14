@@ -2,5 +2,9 @@ body {
     margin: auto;
     max-width: 50em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background: #ffffe0;
+    background: #f1bf00;
+}
+
+h2 {
+    background-color: #aa151b
 }
