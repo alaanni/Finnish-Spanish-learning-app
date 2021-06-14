@@ -2,9 +2,24 @@ body {
     margin: auto;
     max-width: 50em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background: #f1bf00;
+    background: lightyellow;
 }
 
 h1 {
     color: #aa151b;
+    background: #f1bf00;
+    border-radius: .25em;
+    text-align: center;
+}
+
+.header {
+    background: #f1bf00;
+}
+
+.img {
+    float: left;
+}
+
+.txt {
+    float: right;
 }
