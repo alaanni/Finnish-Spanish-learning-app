@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="header">
 <h2>Tervetuloa! <i>¡Bienvenido!</i></h2>
 <img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
-<br>
+</div>
 
 {% if session.user_id %} 
 Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="/logout">Kirjaudu ulos</a>

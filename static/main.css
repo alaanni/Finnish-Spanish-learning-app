@@ -5,6 +5,9 @@ body {
     background: #f1bf00;
 }
 
-h2 {
-    background-color: #aa151b
+.header {
+    background: #aa151b;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
 }
