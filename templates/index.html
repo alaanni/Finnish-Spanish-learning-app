@@ -1,47 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<body>
-<div class="header">
-    <h2>Tervetuloa! <i>¡Bienvenido!</i></h2>
-    <img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
-</div>
+<h2>Tervetuloa! <i>¡Bienvenido!</i></h2>
+<img src="/static/espanola.jpg" width="200" height="300" alt="espanola">
 
-<div class="content">
-    {% if session.user_id %} 
-    Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="/logout">Kirjaudu ulos</a>
-    <br>
+{% if session.user_id %} 
+Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="/logout">Kirjaudu ulos</a>
+<br>
 
-    {% else %}
-    <p>Tässä sovelluksessa voit harjoitella espanjankielisiä sanoja ja lauseita. 
-        Kirjauduttuasi näet taitotasollesi sopivat harjoitukset ja 
-        taitotasosi kasvaa oikeiden vastausten myötä.</p>
-    <b><a href="/login">Kirjaudu sisään</a> aloittaaksesi opiskelun!</b>
-    <p>Jos rekisteröidyt opettajaksi, pääset luomaan sovellukseen uusia harjoituksia.</p>
-    {% endif %}
+{% else %}
+<p>Tässä sovelluksessa voit harjoitella espanjankielisiä sanoja ja lauseita. 
+    Kirjauduttuasi näet taitotasollesi sopivat harjoitukset ja 
+    taitotasosi kasvaa oikeiden vastausten myötä.</p>
+<b><a href="/login">Kirjaudu sisään</a> aloittaaksesi opiskelun!</b>
+<p>Jos rekisteröidyt opettajaksi, pääset luomaan sovellukseen uusia harjoituksia.</p>
+{% endif %}
 
-    {% if session.user_role == 1 %}
-    Osaamistasosi on <b>{{ session.user_level }}</b>.<br>
-    Pisteitä: <b>{{ session.user_points }}</b>.<br>
+{% if session.user_role == 1 %}
+Osaamistasosi on <b>{{ session.user_level }}</b>.<br>
+Pisteitä: <b>{{ session.user_points }}</b>.<br>
 
 
-    <h3>Omat harjoitukset: </h3>
+<h3>Omat harjoitukset: </h3>
 
-    <ul>
-    {% for exercise in exercises %}
-    {% if exercise.level <= session.user_level %}
-    <li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})
-    {% endif %}
-    {% endfor %}
-    </ul>
-    {% endif %}
+<ul>
+{% for exercise in exercises %}
+{% if exercise.level <= session.user_level %}
+<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
 
-    {% if session.user_role == 2 %}
-    <h3>Opettajan toiminnot</h3>
-    <a href="/add">Luo uusi harjoitus</a><br>
-    <a href="/remove">Poista harjoituksia</a><br>
-    <a href="/stats">Omat harjoitukset</a><br>
-    {% endif %}
-</div>
+{% if session.user_role == 2 %}
+<h3>Opettajan toiminnot</h3>
+<a href="/add">Luo uusi harjoitus</a><br>
+<a href="/remove">Poista harjoituksia</a><br>
+<a href="/stats">Omat harjoitukset</a><br>
+{% endif %}
 
 {% endblock %}
