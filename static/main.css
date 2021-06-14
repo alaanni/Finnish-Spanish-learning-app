@@ -11,3 +11,9 @@ body {
     padding: 2em 1em;
     font-size: 2em;
 }
+
+.content {
+    background: #f1bf00;
+    padding: 1.5em 2em;
+    border-radius: .5em
+}
