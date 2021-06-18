@@ -1,4 +1,3 @@
-from sqlalchemy.sql.operators import distinct_op
 from db import db
 
 def get_full_reviews(user_id):
