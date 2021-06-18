@@ -17,13 +17,16 @@ Sovellukseen voi myös rekisteröityä opettajana, jolloin voi luoda uusia harjo
   - voi vastata harjoitusten kysymyksiin
   - voi tarkastella moneenko harjoituksen kysymykseen on vastannut oikein
   - näkee harjoituksista saadut pisteet
+  - voi arvioida harjoituksia
+  - näkee harjoituksille annettujen numeroarviointien keskiarvon **(kesken)**
 - Opettaja:
   - näkee valikon opettajan toiminnoista
   - voi luoda uuden harjoituksen
   - voi poistaa luomiaan harjoituksia
   - ei voi vastata harjoituksiin, ainoastaan tarkastella niitä
   - näkee tilastoja omista harjoituksistaan
+  - näkee sekä numeeriset että kirjalliset arviot omista harjoituksistaan **(kesken)**
 
 ## Kehitettävää
 - Selkeämmät tilastot opettajille
-- Sovelluksen ulkoasu
+- Välitön palaute tuloksesta kysymyksiin vastaamisen jälkeen
