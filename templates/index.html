@@ -19,16 +19,13 @@ Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="
 {% if session.user_role == 1 %}
 Osaamistasosi on <b>{{ session.user_level }}</b>.<br>
 Pisteitä: <b>{{ session.user_points }}</b>.<br>
-
+<br>
 <h3>Omat harjoitukset: </h3>
-
-<ul>
 {% for exercise in exercises %}
 {% if exercise.level <= session.user_level %}
-<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})
+<a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})<br>
 {% endif %}
 {% endfor %}
-</ul>
 {% endif %}
 
 {% if session.user_role == 2 %}

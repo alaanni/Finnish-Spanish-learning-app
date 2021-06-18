@@ -28,3 +28,11 @@ CREATE TABLE answers (
     user_id INTEGER REFERENCES users,
     result INTEGER
 )
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    exercise_id INTEGER REFERENCES exercises,
+    user_id INTEGER REFERENCES users,
+    rating INTEGER,
+    feedback TEXT
+)

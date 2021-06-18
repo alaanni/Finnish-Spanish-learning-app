@@ -133,3 +133,14 @@ def stats():
     statistics = exercises.get_stats(users.user_id())
 
     return render_template("stats.html", exercises=list, statistics=statistics)
+
+@app.route("/review/<int:id>", methods=["get", "post"])
+def review(id):
+    if request.method == "GET":
+        return render_template("review.html", id=id)
+
+    if request.method == "POST":
+        users.require_role(1)
+        users.check_csrf()
+
+        return render_template("review.html", id=id)
