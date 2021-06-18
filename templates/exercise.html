@@ -3,8 +3,7 @@
 
 <h2>Harjoitus: {{ name }}</h2>
 
-Harjoituksen vaikeustaso on {{ level }}.
-<br>
+Harjoituksen vaikeustaso on {{ level }}.<br>
 {% if level < 2%}
 Tasolla {{ level }} tehtävät ovat monivalintakysymyksiä.
 {% else %}
@@ -15,10 +14,11 @@ Tasolla {{ level }} tehtävät ovat avoimia kysymyksiä.
 {% if session.user_role == 1 %}
 <p><a href="/study/{{ id }}">Aloita harjoitus</a></p>
 
-Olet vastannut oikein {{ answers }}/{{ questions }} kysymykseen.
-<p>
+<p><b>Olet vastannut oikein {{ answers }}/{{ questions }} kysymykseen.</b></p>
 
+Opiskelijoiden arvio harjoituksesta {{ review }}/5
 <p><a href="/review/{{ id }}">Anna palautetta harjoituksesta</a></p>
+
 {% else %}
 <p><a href="/study/{{ id }}">Tarkastele harjoitusta</a></p>
 {% endif %}

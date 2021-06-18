@@ -4,7 +4,7 @@ from flask.globals import session
 from app import app
 from flask import redirect, render_template, request
 from flask import render_template
-import users, exercises
+import users, exercises, reviews
 
 @app.route("/")
 def index():
@@ -80,11 +80,18 @@ def exercise(id):
     info = exercises.get_info(id)
     questions = exercises.count_questions(id)
     correct_answers = exercises.count_correct_answers(id, users.user_id())
+    review_list = reviews.get_reviews_average(id)
+    sum = 0
+    review = 0
+    if len(review_list) != 0:
+        for r in review_list:
+            sum += r[0]
+        review = sum/len(review_list)
     users.check_points()
     users.check_level()
 
     return render_template("exercise.html", id=id, name=info[0], level=info[1], teacher=info[2], 
-    questions=questions, answers=correct_answers)
+    questions=questions, answers=correct_answers, review=review)
 
 @app.route("/study/<int:id>", methods=["get", "post"])
 def study(id):
@@ -131,8 +138,9 @@ def stats():
     users.require_role(2)
     list = exercises.get_teachers_exercises(users.user_id())
     statistics = exercises.get_stats(users.user_id())
+    teacher_reviews = reviews.get_full_reviews(users.user_id())
 
-    return render_template("stats.html", exercises=list, statistics=statistics)
+    return render_template("stats.html", exercises=list, statistics=statistics, reviews=teacher_reviews)
 
 @app.route("/review/<int:id>", methods=["get", "post"])
 def review(id):
@@ -142,5 +150,11 @@ def review(id):
     if request.method == "POST":
         users.require_role(1)
         users.check_csrf()
-
-        return render_template("review.html", id=id)
+        rating = int(request.form["rating"])
+        feedback = request.form["feedback"]
+        if rating < 1 or rating > 5:
+            return render_template("error.html", message="Virheellinen arvio")
+        if len(feedback) > 1000 or len(feedback) < 1:
+            return render_template("error.html", message="Palautteen tulee olla 1-1000 merkkiä pitkä")
+        reviews.add_review(id, users.user_id(), rating, feedback)
+        return redirect("/exercise/"+str(id))

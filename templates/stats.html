@@ -2,22 +2,35 @@
 {% block content %}
 
 <h2>Omat harjoitukset</h2>
-
+<ul>
 {% for exercise in exercises %}
-<h3>Harjoitus: {{ exercise.name }}</h3>
-<h4>Tulokset:</h4>
+<li><h4>Harjoitus: {{ exercise.name }}</h4>
+<ul>
+<li><h5>Opiskelijoiden arviot:</h5>
+<ul>
+{% for r in reviews %}
+{% if exercise.name == r.name %}
+<li>{{ r.rating }} {{ r.feedback }}
+{% endif %}
+{% endfor %}
+</ul>
+<li><h5>Tulokset:</h5>
+<ul>
 {% for stat in statistics %}
 {% if stat.name == exercise.name %}
-<p><b>Opiskelija: {{ stat.username }}</b></p>
+<li><b>{{ stat.username }}: </b>
 {% if stat.result == 1 %} 
-Oikeita vastauksia {{ stat.count }}<br>
+oikeita vastauksia {{ stat.count }}<br>
 {% else %}
-Vääriä vastauksia {{ stat.count }}
+vääriä vastauksia {{ stat.count }}
 {% endif %}
 {% endif %}
 {% endfor %}
+</ul>
+</ul>
 <br>
 {% endfor %}
+</ul>
 
 <br>
 <a href="/">Palaa takaisin</a>

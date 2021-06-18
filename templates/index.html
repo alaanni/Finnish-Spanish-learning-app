@@ -20,7 +20,7 @@ Olet kirjautunut sisään nimellä <b>{{ session.user_username }}</b>. <a href="
 Osaamistasosi on <b>{{ session.user_level }}</b>.<br>
 Pisteitä: <b>{{ session.user_points }}</b>.<br>
 <br>
-<h3>Omat harjoitukset: </h3>
+<h3>Omat harjoitukset </h3>
 {% for exercise in exercises %}
 {% if exercise.level <= session.user_level %}
 <a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a> (taso {{ exercise.level }})<br>
